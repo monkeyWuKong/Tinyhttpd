@@ -13,11 +13,13 @@ int main(int argc, char *argv[])
     int result;
     char ch = 'A';
 
+	//创建socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = inet_addr("127.0.0.1");
     address.sin_port = htons(9734);
     len = sizeof(address);
+	//连接
     result = connect(sockfd, (struct sockaddr *)&address, len);
 
     if (result == -1)
@@ -25,6 +27,7 @@ int main(int argc, char *argv[])
         perror("oops: client1");
         exit(1);
     }
+	//读写
     write(sockfd, &ch, 1);
     read(sockfd, &ch, 1);
     printf("char from server = %c\n", ch);
